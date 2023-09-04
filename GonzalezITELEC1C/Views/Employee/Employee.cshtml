@@ -1,0 +1,47 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    //Name
+    var FirstName = "Ezequiel";
+    var LastName = "Gonzalez";
+    //Date and Age
+    DateTime DateToday = DateTime.UtcNow;
+    DateTime Birthday = new DateTime(2001, 7, 9);
+    TimeSpan Difference = DateToday.Subtract(Birthday);
+    var FirstDay = new DateTime(1, 1, 1);
+    int Age = (FirstDay + Difference).Year - 1;
+    //Email
+    string Email = "ezequiel.gonzalez.cics@ust.edu.ph";
+    string[] Extract = Email.Split('@');
+    string Username = Extract[0];
+    string Domain = Extract[1];
+    //Status
+    bool IsTenured = false;
+    //Salary
+    decimal SalaryPerHour = 1000;
+    decimal SalaryPerDay = SalaryPerHour * 8;
+    decimal SalaryPerMonth = SalaryPerDay * 30;
+    if (IsTenured)
+    {
+        SalaryPerMonth += 500;
+    }
+    
+}
+<h1>Employee Database</h1>
+<h4>A: Sample Output</h4>
+<p>I am @FirstName @LastName and I'm @Age years old</p>
+
+<h4>B: Sample Output</h4>
+<p>Email: @Email</p>
+<p>Domain: @Domain</p>
+<p>Username: @Username</p>
+
+<h4>C: Sample Output</h4>
+<p>Name: @FirstName @LastName</p>
+<p>Domain: @Email</p>
+<p>Status: @(IsTenured ? "Permanent" : "Probationary")</p>
+<p>Daily Salary: $@SalaryPerDay.ToString("N2")</p>
+<p>Monthly Salary: $@SalaryPerMonth.ToString("N2")</p>
+
+

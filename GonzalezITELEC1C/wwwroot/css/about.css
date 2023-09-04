@@ -1,0 +1,82 @@
+﻿body {
+    background-color: #262622;
+}
+.bg-custom {
+    background-color: #262622;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: -48px;
+}
+    .bg-custom h2 {
+        font-size: 30px;
+        padding-left: 20px;
+        color: #ad867c;
+        font-family: 'Lexend', sans-serif;
+      
+    }
+    .bg-custom h3 {
+        font-size: 20px;
+        padding-left: 20px;
+        color: #ad867c;
+        font-family: 'Lexend', sans-serif;
+    }
+    .bg-custom h4 {
+        font-size: 15px;
+        color: white;
+        font-family: 'Lexend';
+        padding-left: 20px;
+        padding-bottom: 20px;
+        margin: 0px 0;
+    }
+
+    .bg-custom p {
+        font-size: 15px;
+        line-height: 30px;
+        color: white;
+        padding-left: 20px;
+        padding-bottom: 60px;
+        margin: 0px 0;
+        font-family: 'Lexend';
+    }
+.text-center {
+    background-color: #262622;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: -48px;
+}
+
+    .text-center img {
+        width: 900px;
+        height: auto;
+    }
+
+    .text-center h1 {
+        font-size: 40px;
+        color: #ad867c;
+        font-family: 'Lexend', sans-serif;
+    }
+.btn-custom {
+    background-color: #AD8C76;
+    color: white;
+    border-color: white;
+    font-family: 'Lexend', sans-serif;
+}
+
+    .btn-custom:hover {
+        background-color: #654321; /* Darker brown color on hover */
+        border-color: #654321; /* Darker border color on hover */
+        color: white;
+    }
+
+
+
+
+
+
+
+
