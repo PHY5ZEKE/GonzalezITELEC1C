@@ -1,0 +1,28 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<h1>Instructor List</h1>
+
+<table class="table">
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Status</th>
+        <th>Rank</th>
+        <th>Details</th>
+    </tr>
+
+    @foreach (var Instructor in Model)
+    {
+        <tr>
+            <td>@Instructor.Id</td>
+            <td>@Instructor.FirstName @Instructor.LastName</td>
+            <td>@(Instructor.IsTenured ? "Permanent" : "Probationary")</td>
+            <td>@Instructor.HiringDate</td>
+            <td><a asp-action="ShowDetails" asp-route-id="@Instructor.Id">Show Details</a></td>
+        </tr>
+    }
+</table>
