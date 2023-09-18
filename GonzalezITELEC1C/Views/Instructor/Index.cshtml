@@ -12,6 +12,7 @@
         <th>Name</th>
         <th>Status</th>
         <th>Rank</th>
+        <th>HiringDate</th>
         <th>Details</th>
     </tr>
 
@@ -21,8 +22,11 @@
             <td>@Instructor.Id</td>
             <td>@Instructor.FirstName @Instructor.LastName</td>
             <td>@(Instructor.IsTenured ? "Permanent" : "Probationary")</td>
+            <td>@Instructor.Rank</td>
             <td>@Instructor.HiringDate</td>
             <td><a asp-action="ShowDetails" asp-route-id="@Instructor.Id">Show Details</a></td>
         </tr>
     }
 </table>
+
+<a class="btn btn-primary" asp-action="AddInstructor">Add Instructor</a>

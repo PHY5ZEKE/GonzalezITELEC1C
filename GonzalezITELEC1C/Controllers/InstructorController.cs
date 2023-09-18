@@ -54,6 +54,17 @@ namespace GonzalezITELEC1C.Controllers
             }
             return NotFound();
         }
+        [HttpGet]
+        public IActionResult AddInstructor()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult AddInstructor(Instructor newInstructor)
+        {
+            InstructorList.Add(newInstructor);
+            return View("Index", InstructorList);
+        }
     }
 }
             

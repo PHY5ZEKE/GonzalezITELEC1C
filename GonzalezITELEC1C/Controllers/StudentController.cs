@@ -48,5 +48,16 @@ namespace GonzalezITELEC1C.Controllers
 
             return NotFound();
         }
+        [HttpGet]
+        public IActionResult AddStudent()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult AddStudent(Student newStudent)
+        {
+            StudentList.Add(newStudent);
+            return View("Student",StudentList);
+        }
     }
 }
