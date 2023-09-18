@@ -5,12 +5,12 @@
 }
 @model Instructor;
 
-<h1>Add Instructor</h1>
+<h1>Edit Instructor</h1>
 
-<form asp-action="AddInstructor" method="post">
+<form asp-action="EditInstructor" method="post">
     <div class="form-group">
         <label asp-for="Id">ID</label>
-        <input asp-for="Id" class="form-control" />
+        <input asp-for="Id" class="form-control" disabled/>
 
     </div>
     <div class="form-group">
@@ -24,7 +24,7 @@
     <div class="form-group">
         <label asp-for="Rank">Rank</label>
         <select asp-for="Rank" asp-items="Html.GetEnumSelectList(typeof(Rank))" class="form-control"><option disabled selected>Select Rank</option></select>
-        
+
     </div>
     <div class="form-group">
         <label asp-for="IsTenured">Status</label>
@@ -39,5 +39,8 @@
         <input asp-for="HiringDate" class="form-control" />
     </div>
     <br />
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <div>
+    <button type="submit" class="btn btn-primary">Save</button>
+     <button type="button" class="btn btn-secondary" onclick="history.back();">Cancel</button>
+    </div>
 </form>

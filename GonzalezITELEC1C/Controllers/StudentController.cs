@@ -59,5 +59,31 @@ namespace GonzalezITELEC1C.Controllers
             StudentList.Add(newStudent);
             return View("Student",StudentList);
         }
+        [HttpGet]
+        public IActionResult EditStudent(int id)
+        {
+            //Search for the student whose id matches the given id
+            Student? student = StudentList.FirstOrDefault(st => st.Id == id);
+
+            if (student != null)//was an student found?
+                return View(student);
+
+            return NotFound();
+        }
+        [HttpPost]
+        public IActionResult EditStudent(Student updateStudent)
+        {
+            Student? student = StudentList.FirstOrDefault(st => st.Id == updateStudent.Id);
+            if (student != null)
+            {
+                student.Id = updateStudent.Id;
+                student.FirstName = updateStudent.FirstName;
+                student.LastName = updateStudent.LastName;
+                student.Email = updateStudent.Email;
+                student.Birthday = updateStudent.Birthday;
+                student.Major = updateStudent.Major;
+            }//was an student found?
+            return View("Student", StudentList);
+        }
     }
 }

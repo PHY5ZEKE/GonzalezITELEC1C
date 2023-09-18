@@ -65,6 +65,35 @@ namespace GonzalezITELEC1C.Controllers
             InstructorList.Add(newInstructor);
             return View("Index", InstructorList);
         }
+        [HttpGet]
+        public IActionResult EditInstructor(int id)
+        {
+
+            Instructor? instructor = InstructorList.FirstOrDefault(st => st.Id == id);
+
+            if (instructor != null)
+            {
+                return View(instructor);
+            }
+            return NotFound();
+        }
+        [HttpPost]
+        public IActionResult EditInstructor(Instructor updateInstructor)
+        {
+
+            Instructor? instructor = InstructorList.FirstOrDefault(st => st.Id == updateInstructor.Id);
+
+            if (instructor != null)
+            {
+                instructor.Id = updateInstructor.Id;
+                instructor.FirstName = updateInstructor.FirstName;
+                instructor.LastName = updateInstructor.LastName;
+                instructor.Rank = updateInstructor.Rank;
+                instructor.IsTenured = updateInstructor.IsTenured;
+                instructor.HiringDate = updateInstructor.HiringDate;
+            }
+             return View("Index", InstructorList);
+        }
     }
 }
             

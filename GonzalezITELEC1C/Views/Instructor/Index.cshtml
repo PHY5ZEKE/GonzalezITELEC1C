@@ -5,6 +5,8 @@
 }
 
 <h1>Instructor List</h1>
+<center><a class="btn btn-primary" asp-action="AddInstructor">Add Instructor</a></center>
+<br/>
 
 <table class="table">
     <tr>
@@ -14,6 +16,7 @@
         <th>Rank</th>
         <th>HiringDate</th>
         <th>Details</th>
+        <th>Update</th>
     </tr>
 
     @foreach (var Instructor in Model)
@@ -24,9 +27,13 @@
             <td>@(Instructor.IsTenured ? "Permanent" : "Probationary")</td>
             <td>@Instructor.Rank</td>
             <td>@Instructor.HiringDate</td>
-            <td><a asp-action="ShowDetails" asp-route-id="@Instructor.Id">Show Details</a></td>
+            <td>
+                <center><a class="btn btn-primary" asp-action="ShowDetails" asp-route-id="@Instructor.Id">Show Details</a></center>
+            </td>
+            <td>
+                <center><a class="btn btn-primary" asp-action="EditInstructor" asp-route-id="@Instructor.Id">Edit</a></center>
+            </td>
         </tr>
     }
 </table>
 
-<a class="btn btn-primary" asp-action="AddInstructor">Add Instructor</a>
