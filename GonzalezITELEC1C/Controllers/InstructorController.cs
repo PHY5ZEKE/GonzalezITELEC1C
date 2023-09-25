@@ -1,53 +1,62 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using GonzalezITELEC1C.Models;
+using GonzalezITELEC1C.Services;
 
 namespace GonzalezITELEC1C.Controllers
 {
     public class InstructorController : Controller
     {
-        List<Instructor> InstructorList = new List<Instructor>()
+       
+            private readonly IMyFakeDataService _fakeData;
+
+            public InstructorController(IMyFakeDataService fakeData)
             {
-                new Instructor()
+                _fakeData = fakeData;
+            }
+            /*
+            List<Instructor> InstructorList = new List<Instructor>()
                 {
-                    Id = 1,
-                    FirstName = "Ezequiel",
-                    LastName = "Gonzalez",
-                    IsTenured = true,
-                    Rank = Rank.Professor,
-                    HiringDate = DateTime.Parse("11/09/2019")
+                    new Instructor()
+                    {
+                        Id = 1,
+                        FirstName = "Ezequiel",
+                        LastName = "Gonzalez",
+                        IsTenured = true,
+                        Rank = Rank.Professor,
+                        HiringDate = DateTime.Parse("11/09/2019")
 
 
-                 },
-                new Instructor()
-                {
-                     Id = 2,
-                    FirstName = "Kirsten",
-                    LastName = "Zulaybar",
-                    IsTenured = false,
-                    Rank = Rank.Instructor,
-                    HiringDate = DateTime.Parse("11/09/2023")
+                     },
+                    new Instructor()
+                    {
+                         Id = 2,
+                        FirstName = "Kirsten",
+                        LastName = "Zulaybar",
+                        IsTenured = false,
+                        Rank = Rank.Instructor,
+                        HiringDate = DateTime.Parse("11/09/2023")
 
 
-                },
-                new Instructor()
-              {
-                     Id = 3,
-                    FirstName = "Edmund Lecter",
-                    LastName = "Garraton",
-                    IsTenured = true,
-                    Rank = Rank.AssociateProfessor,
-                    HiringDate = DateTime.Parse("11/09/2023")
-              }
-              };
-        public IActionResult Index()
+                    },
+                    new Instructor()
+                  {
+                         Id = 3,
+                        FirstName = "Edmund Lecter",
+                        LastName = "Garraton",
+                        IsTenured = true,
+                        Rank = Rank.AssociateProfessor,
+                        HiringDate = DateTime.Parse("11/09/2023")
+                  }
+                  };*/
+            public IActionResult Index()
         {
            
-            return View(InstructorList);
+            return View(_fakeData.InstructorLists);
         }
         public IActionResult ShowDetails(int id)
         {
             
-            Instructor? instructor = InstructorList.FirstOrDefault(st => st.Id == id);
+            Instructor? instructor = _fakeData.InstructorLists.FirstOrDefault(st => st.Id == id);
 
             if (instructor != null) {
                 return View(instructor);
@@ -62,14 +71,15 @@ namespace GonzalezITELEC1C.Controllers
         [HttpPost]
         public IActionResult AddInstructor(Instructor newInstructor)
         {
-            InstructorList.Add(newInstructor);
-            return View("Index", InstructorList);
+            _fakeData.InstructorLists.Add(newInstructor);
+            return RedirectToAction("Index");
+
         }
         [HttpGet]
         public IActionResult EditInstructor(int id)
         {
 
-            Instructor? instructor = InstructorList.FirstOrDefault(st => st.Id == id);
+            Instructor? instructor = _fakeData.InstructorLists.FirstOrDefault(st => st.Id == id);
 
             if (instructor != null)
             {
@@ -81,7 +91,7 @@ namespace GonzalezITELEC1C.Controllers
         public IActionResult EditInstructor(Instructor updateInstructor)
         {
 
-            Instructor? instructor = InstructorList.FirstOrDefault(st => st.Id == updateInstructor.Id);
+            Instructor? instructor = _fakeData.InstructorLists.FirstOrDefault(st => st.Id == updateInstructor.Id);
 
             if (instructor != null)
             {
@@ -92,10 +102,34 @@ namespace GonzalezITELEC1C.Controllers
                 instructor.IsTenured = updateInstructor.IsTenured;
                 instructor.HiringDate = updateInstructor.HiringDate;
             }
-             return View("Index", InstructorList);
+            return RedirectToAction("Index");
         }
+
+        [HttpGet]
+        public IActionResult DeleteInstructor(int id)
+        {
+            Instructor? instructor = _fakeData.InstructorLists.FirstOrDefault(st => st.Id == id);
+
+            if (instructor != null)
+            {
+                return View(instructor);
+            }
+
+            return NotFound();
+
+        }
+        [HttpPost]
+        public IActionResult DeleteInstructor(Instructor delInstructor)
+        {
+           Instructor? instructor = _fakeData.InstructorLists.FirstOrDefault(st => st.Id == delInstructor.Id);
+            _fakeData.InstructorLists.Remove(instructor);
+            return RedirectToAction("Index");
+
+        }
+
     }
 }
+
             
         
     
