@@ -1,16 +1,17 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using GonzalezITELEC1C.Models;
 using GonzalezITELEC1C.Services;
+using GonzalezITELEC1C.Data;
 
 namespace GonzalezITELEC1C.Controllers
 {
     public class StudentController : Controller
     {
-        private readonly IMyFakeDataService _fakeData;
+        private readonly AppDbContext _dbContext;
         
-        public StudentController(IMyFakeDataService fakeData)
+        public StudentController(AppDbContext dbContext)
         {
-            _fakeData = fakeData;
+            _dbContext = dbContext;
         }
         /*
         List<Student> StudentList = new List<Student>()
@@ -45,12 +46,12 @@ namespace GonzalezITELEC1C.Controllers
               };*/
         public IActionResult Student()
         {
-            return View(_fakeData.StudentLists);
+            return View(_dbContext.Students);
                }
         public IActionResult ShowDetails(int id)
         {
             //Search for the student whose id matches the given id
-            Student? student = _fakeData.StudentLists.FirstOrDefault(st => st.Id == id);
+            Student? student = _dbContext.Students.FirstOrDefault(st => st.Id == id);
 
             if (student != null)//was an student found?
                 return View(student);
@@ -65,14 +66,15 @@ namespace GonzalezITELEC1C.Controllers
         [HttpPost]
         public IActionResult AddStudent(Student newStudent)
         {
-            _fakeData.StudentLists.Add(newStudent);
+            _dbContext.Students.Add(newStudent);
+            _dbContext.SaveChanges();
             return RedirectToAction("Student");
         }
         [HttpGet]
         public IActionResult EditStudent(int id)
         {
             //Search for the student whose id matches the given id
-            Student? student = _fakeData.StudentLists.FirstOrDefault(st => st.Id == id);
+            Student? student = _dbContext.Students.FirstOrDefault(st => st.Id == id);
 
             if (student != null)//was an student found?
                 return View(student);
@@ -82,7 +84,7 @@ namespace GonzalezITELEC1C.Controllers
         [HttpPost]
         public IActionResult EditStudent(Student updateStudent)
         {
-            Student? student = _fakeData.StudentLists.FirstOrDefault(st => st.Id == updateStudent.Id);
+            Student? student = _dbContext.Students.FirstOrDefault(st => st.Id == updateStudent.Id);
             if (student != null)
             {
                 student.Id = updateStudent.Id;
@@ -92,12 +94,13 @@ namespace GonzalezITELEC1C.Controllers
                 student.Birthday = updateStudent.Birthday;
                 student.Major = updateStudent.Major;
             }//was an student found?
+            _dbContext.SaveChanges();
             return RedirectToAction("Student");
         }
         [HttpGet]
         public IActionResult DeleteStud(int id)
         {
-            Student? student = _fakeData.StudentLists.FirstOrDefault(st => st.Id == id);
+            Student? student = _dbContext.Students.FirstOrDefault(st => st.Id == id);
 
             if (student != null)//was an student found?
                 return View(student);
@@ -108,8 +111,9 @@ namespace GonzalezITELEC1C.Controllers
         [HttpPost]
         public IActionResult DeleteStud(Student delStudent)
         {
-            Student? student = _fakeData.StudentLists.FirstOrDefault(st => st.Id == delStudent.Id);
-            _fakeData.StudentLists.Remove(student);
+            Student? student = _dbContext.Students.FirstOrDefault(st => st.Id == delStudent.Id);
+            _dbContext.Students.Remove(student);
+            _dbContext.SaveChanges();
             return RedirectToAction("Student");
 
         }

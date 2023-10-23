@@ -1,17 +1,19 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using GonzalezITELEC1C.Models;
 using GonzalezITELEC1C.Services;
+using GonzalezITELEC1C.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace GonzalezITELEC1C.Controllers
 {
     public class InstructorController : Controller
     {
        
-            private readonly IMyFakeDataService _fakeData;
+            private readonly AppDbContext _dbContext;
 
-            public InstructorController(IMyFakeDataService fakeData)
+            public InstructorController(AppDbContext dbContext)
             {
-                _fakeData = fakeData;
+                  _dbContext = dbContext; 
             }
             /*
             List<Instructor> InstructorList = new List<Instructor>()
@@ -51,12 +53,12 @@ namespace GonzalezITELEC1C.Controllers
             public IActionResult Index()
         {
            
-            return View(_fakeData.InstructorLists);
+            return View(_dbContext.Instructors);
         }
         public IActionResult ShowDetails(int id)
         {
             
-            Instructor? instructor = _fakeData.InstructorLists.FirstOrDefault(st => st.Id == id);
+            Instructor? instructor = _dbContext.Instructors.FirstOrDefault(st => st.Id == id);
 
             if (instructor != null) {
                 return View(instructor);
@@ -71,7 +73,8 @@ namespace GonzalezITELEC1C.Controllers
         [HttpPost]
         public IActionResult AddInstructor(Instructor newInstructor)
         {
-            _fakeData.InstructorLists.Add(newInstructor);
+            _dbContext.Instructors.Add(newInstructor);
+            _dbContext.SaveChanges();
             return RedirectToAction("Index");
 
         }
@@ -79,7 +82,7 @@ namespace GonzalezITELEC1C.Controllers
         public IActionResult EditInstructor(int id)
         {
 
-            Instructor? instructor = _fakeData.InstructorLists.FirstOrDefault(st => st.Id == id);
+            Instructor? instructor = _dbContext.Instructors.FirstOrDefault(st => st.Id == id);
 
             if (instructor != null)
             {
@@ -91,7 +94,7 @@ namespace GonzalezITELEC1C.Controllers
         public IActionResult EditInstructor(Instructor updateInstructor)
         {
 
-            Instructor? instructor = _fakeData.InstructorLists.FirstOrDefault(st => st.Id == updateInstructor.Id);
+            Instructor? instructor = _dbContext.Instructors.FirstOrDefault(st => st.Id == updateInstructor.Id);
 
             if (instructor != null)
             {
@@ -102,13 +105,14 @@ namespace GonzalezITELEC1C.Controllers
                 instructor.IsTenured = updateInstructor.IsTenured;
                 instructor.HiringDate = updateInstructor.HiringDate;
             }
+            _dbContext.SaveChanges();
             return RedirectToAction("Index");
         }
 
         [HttpGet]
         public IActionResult DeleteInstructor(int id)
         {
-            Instructor? instructor = _fakeData.InstructorLists.FirstOrDefault(st => st.Id == id);
+            Instructor? instructor = _dbContext.Instructors.FirstOrDefault(st => st.Id == id);
 
             if (instructor != null)
             {
@@ -121,8 +125,9 @@ namespace GonzalezITELEC1C.Controllers
         [HttpPost]
         public IActionResult DeleteInstructor(Instructor delInstructor)
         {
-           Instructor? instructor = _fakeData.InstructorLists.FirstOrDefault(st => st.Id == delInstructor.Id);
-            _fakeData.InstructorLists.Remove(instructor);
+           Instructor? instructor = _dbContext.Instructors.FirstOrDefault(st => st.Id == delInstructor.Id);
+            _dbContext.Instructors.Remove(instructor);
+            _dbContext.SaveChanges();
             return RedirectToAction("Index");
 
         }
