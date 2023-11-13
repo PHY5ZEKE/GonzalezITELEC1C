@@ -68,11 +68,16 @@ namespace GonzalezITELEC1C.Controllers
         [HttpGet]
         public IActionResult AddInstructor()
         {
+            
             return View();
         }
         [HttpPost]
         public IActionResult AddInstructor(Instructor newInstructor)
         {
+            if(!ModelState.IsValid)
+            {
+                return View();
+            }
             _dbContext.Instructors.Add(newInstructor);
             _dbContext.SaveChanges();
             return RedirectToAction("Index");

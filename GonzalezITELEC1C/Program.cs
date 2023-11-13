@@ -5,6 +5,13 @@ using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSession(options =>
+{
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+}); ;
+
 //builder.Services.AddSingleton<IMyFakeDataService, MyFakeDataService>();
 //Database Connection Service
 builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
@@ -19,6 +26,7 @@ if (!app.Environment.IsDevelopment())
 }
 var context = app.Services.CreateScope().ServiceProvider.GetRequiredService<AppDbContext>();
 context.Database.EnsureCreated();
+
 app.UseStaticFiles();
 
 app.UseRouting();

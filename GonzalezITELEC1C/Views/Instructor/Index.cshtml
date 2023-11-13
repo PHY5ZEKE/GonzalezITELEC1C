@@ -19,6 +19,7 @@
         <th>Status</th>
         <th>Rank</th>
         <th>HiringDate</th>
+        <th>Phone</th>
         <th>Details</th>
         <th>Update</th>
         <th>Delete</th>
@@ -32,6 +33,7 @@
             <td>@(Instructor.IsTenured ? "Permanent" : "Probationary")</td>
             <td>@Instructor.Rank</td>
             <td>@Instructor.HiringDate</td>
+            <td>@Instructor.Phone</td>
             <td>
                 <center><a class="btn btn-primary" asp-action="ShowDetails" asp-route-id="@Instructor.Id">Show Details</a></center>
             </td>

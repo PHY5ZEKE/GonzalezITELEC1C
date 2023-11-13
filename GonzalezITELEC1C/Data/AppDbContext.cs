@@ -52,7 +52,8 @@ namespace GonzalezITELEC1C.Data
                     LastName = "Gonzalez",
                     IsTenured = true,
                     Rank = Rank.Professor,
-                    HiringDate = DateTime.Parse("11/09/2019")
+                    HiringDate = DateTime.Parse("11/09/2019"),
+                    Phone = "00-0000-0000"
 
 
                 },
@@ -63,8 +64,8 @@ namespace GonzalezITELEC1C.Data
                     LastName = "Zulaybar",
                     IsTenured = false,
                     Rank = Rank.Instructor,
-                    HiringDate = DateTime.Parse("11/09/2023")
-
+                    HiringDate = DateTime.Parse("11/09/2023"),
+                     Phone = "00-0000-0000"
 
                 },
                 new Instructor()
@@ -74,7 +75,8 @@ namespace GonzalezITELEC1C.Data
                     LastName = "Garraton",
                     IsTenured = true,
                     Rank = Rank.AssociateProfessor,
-                    HiringDate = DateTime.Parse("11/09/2023")
+                    HiringDate = DateTime.Parse("11/09/2023"),
+                     Phone = "00-0000-0000"
                 }
                 );
 
